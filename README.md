@@ -1,5 +1,5 @@
 ## Rodar server:
- > python server.py localhost 8000
+ > python server/server.py localhost 8000
 
 ## Rodar client:
- > python client.py
+ > python client/client.py
