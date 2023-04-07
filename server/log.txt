@@ -1,0 +1,1 @@
+server: a cliente: x Operação : y tempo: z
