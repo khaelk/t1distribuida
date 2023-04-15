@@ -33,6 +33,8 @@ def checkInsert():
     print(f"Checking insert {insert}")
     return insert
 
+print('banana')
+
 with SimpleXMLRPCServer((ip, int(port))) as server:
     server.register_function(changeDelete)
     server.register_function(changeInsert)

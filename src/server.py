@@ -22,10 +22,10 @@ def read(id):
         #Retorna ao cliente
         return "O servidor está ocupado no momento"
     else:
-        with open('./server/log.txt','a') as f:
+        with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=WRITE, STATUS=STARTING\n')
         sleep(5)
-        with open('./server/log.txt','a') as f:
+        with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=WRITE, STATUS=FINISHING\n')
         return "Leitura efetuada"
 
@@ -36,10 +36,10 @@ def insert(id):
     else:
         print('Locking insert')
         lockServer.changeInsert()
-        with open('./server/log.txt','a') as f:
+        with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=INSERT, STATUS=STARTING\n')
             sleep(5)
-        with open('./server/log.txt','a') as f:
+        with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=INSERT, STATUS=FINISHING\n')
         print('Unlocking insert')
         lockServer.changeInsert()
@@ -53,10 +53,10 @@ def delete(id):
     else:
         print('Locking delete')
         lockServer.changeDelete()
-        with open('./server/log.txt','a') as f:
+        with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=DELETE, STATUS=STARTING\n')
             sleep(5)
-        with open('./server/log.txt','a') as f:
+        with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=DELETE, STATUS=FINISHING\n')
         print('Unlocking delete')
         lockServer.changeDelete()

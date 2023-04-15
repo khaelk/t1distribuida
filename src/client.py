@@ -3,11 +3,14 @@ import threading
 from time import sleep
 import random
 import sys
+import os
 
+#current_directory = os.getcwd()
 serverIps = []
 serverPorts = []
 serverCount = -1
-with open("./client/config.txt", 'r') as f:
+
+with open("./src/config.txt", 'r') as f:
     for line in f:
         serverCount+=1
         line = line.rstrip('\n')
