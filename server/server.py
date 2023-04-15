@@ -6,12 +6,6 @@ import time, calendar
 from time import sleep
 import xmlrpc.client
 
-
-deleteBlocked = False
-InsertBlocked = False
-
-
-
 try:
     ip = sys.argv[1]
     port = sys.argv[2]
@@ -32,7 +26,7 @@ def read(id):
         print(f'cliente {id}: read {time_stamp}')
         return "Leitura efetuada"
 
-def insert():
+def insert(id):
     print('antes do if')
     if lockServer.checkDelete() or lockServer.checkInsert():
         # tentar retornar
@@ -42,24 +36,11 @@ def insert():
         print('antes do change')
         lockServer.changeInsert()
         sleep(5)
-        # pedir pro servidor
-        #(0.1)
-        # pedir pro servidor
-        #sleep(0.1)
-        # pedir pro servidor
-        #sleep(0.1)
-        #resWrite = lockServer.writefile()
-        #if resWrite == "OK":
         lockServer.changeInsert()
         return "Insert efetuado"
-        # else:
-        #     sleep(0.1)
-        #     resWrite = lockServer.writefile()
-        #     return "Nao foi possivel"
-        # resDelete = lockServer.deleteline()
         
 
-def delete():
+def delete(id):
     if lockServer.checkDelete() or lockServer.checkInsert():
         # tentar retornar
         return "O servidor está ocupado no momento"
@@ -68,14 +49,6 @@ def delete():
         sleep(5)
         lockServer.changeDelete()
         return "Delete efetuado"
-
-def processing():
-    
-    return 1
-
-
-
-
 
 with SimpleXMLRPCServer((ip, int(port))) as server:
     server.register_function(read)
