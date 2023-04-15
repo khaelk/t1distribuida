@@ -3,9 +3,7 @@ import threading
 from time import sleep
 import random
 import sys
-import os
 
-#current_directory = os.getcwd()
 serverIps = []
 serverPorts = []
 serverCount = -1

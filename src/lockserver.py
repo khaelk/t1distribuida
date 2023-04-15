@@ -6,6 +6,8 @@ import sys
 delete = False
 insert = False
 
+print('banana1')
+
 try:
     ip = sys.argv[1]
     port = sys.argv[2]
@@ -33,7 +35,7 @@ def checkInsert():
     print(f"Checking insert {insert}")
     return insert
 
-print('banana')
+print('banana2')
 
 with SimpleXMLRPCServer((ip, int(port))) as server:
     server.register_function(changeDelete)

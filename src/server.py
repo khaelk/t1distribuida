@@ -23,10 +23,10 @@ def read(id):
         return "O servidor está ocupado no momento"
     else:
         with open('./src/log.txt','a') as f:
-            f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=WRITE, STATUS=STARTING\n')
+            f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=READ, STATUS=STARTING\n')
         sleep(5)
         with open('./src/log.txt','a') as f:
-            f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=WRITE, STATUS=FINISHING\n')
+            f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=READ, STATUS=FINISHING\n')
         return "Leitura efetuada"
 
 def insert(id):

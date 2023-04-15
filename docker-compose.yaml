@@ -17,4 +17,4 @@ services:
       services_network:
         ipv4_address: 172.18.2.1
     build: .
-    entrypoint: python src/lockserver.py 172.18.2.1 5000
+    command: python lockserver.py 172.18.2.1 5000
