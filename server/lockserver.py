@@ -3,12 +3,6 @@ from xmlrpc.server import SimpleXMLRPCServer
 from threading import Thread, Semaphore
 import sys
 
-    # t1 = threading.Thread(target=processing, args=(1,))
-    # t1.start()
-    # t1.join()
-
-    # semaphore.acquire(timeout=10)
-    # semaphore.release(n=3)
 delete = False
 insert = False
 
@@ -18,19 +12,6 @@ try:
 except IndexError:
     print("ERROR: IP or port not defined when passing arguments.")
     sys.exit(0)
-
-def checkLock():
-    return delete
-
-def youCanLock():
-    if(delete):
-        # acessa e deleta linha do arquivo ou guarda log
-        # sleep
-        return "Delete OK"
-    else:
-        return "File is locked"
-
-# ====================
 
 def changeDelete():
     global delete
