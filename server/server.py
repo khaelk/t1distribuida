@@ -19,34 +19,46 @@ lockServer = xmlrpc.client.ServerProxy(f"http://{lockServerIp}:{lockServerPort}"
 
 def read(id):
     if lockServer.checkDelete():
-        # tentar retornar
+        #Retorna ao cliente
         return "O servidor está ocupado no momento"
     else:
-        time_stamp = time.time()
-        print(f'cliente {id}: read {time_stamp}')
+        with open('./server/log.txt','a') as f:
+            f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=WRITE, STATUS=STARTING\n')
+        sleep(5)
+        with open('./server/log.txt','a') as f:
+            f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=WRITE, STATUS=FINISHING\n')
         return "Leitura efetuada"
 
 def insert(id):
-    print('antes do if')
     if lockServer.checkDelete() or lockServer.checkInsert():
-        # tentar retornar
-        print('dentro do if')
+        #Retorna ao cliente
         return "O servidor está ocupado no momento"
     else:
-        print('antes do change')
+        print('Locking insert')
         lockServer.changeInsert()
-        sleep(5)
+        with open('./server/log.txt','a') as f:
+            f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=INSERT, STATUS=STARTING\n')
+            sleep(5)
+        with open('./server/log.txt','a') as f:
+            f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=INSERT, STATUS=FINISHING\n')
+        print('Unlocking insert')
         lockServer.changeInsert()
         return "Insert efetuado"
         
 
 def delete(id):
     if lockServer.checkDelete() or lockServer.checkInsert():
-        # tentar retornar
+        #Retorna ao cliente
         return "O servidor está ocupado no momento"
     else:
+        print('Locking delete')
         lockServer.changeDelete()
-        sleep(5)
+        with open('./server/log.txt','a') as f:
+            f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=DELETE, STATUS=STARTING\n')
+            sleep(5)
+        with open('./server/log.txt','a') as f:
+            f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=DELETE, STATUS=FINISHING\n')
+        print('Unlocking delete')
         lockServer.changeDelete()
         return "Delete efetuado"
 
