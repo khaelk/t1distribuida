@@ -1,23 +1,41 @@
 import xmlrpc.client
 import threading
 from time import sleep
+import random
 import sys
+
+serverIps = []
+serverPorts = []
+serverCount = -1
+with open("./client/config.txt", 'r') as f:
+    for line in f:
+        serverCount+=1
+        line = line.rstrip('\n')
+        s = line.split(':')
+        serverIps.append(s[0])
+        serverPorts.append(s[1])
+
+print(random.randint(0,0), serverCount)
 
 try:
     id = sys.argv[1]
 except IndexError:
-    print("ERROR: IP or port not defined when passing arguments.")
+    print("ERROR: define a client id.")
     sys.exit(0)
-
-server = xmlrpc.client.ServerProxy("http://localhost:8000")
 
 def function_call():
     while True:
-        print(server.read(id))
-        sleep(0.1)
-        print(server.insert())
-        sleep(0.1)
-        print(server.delete())
-        sleep(0.1)
+        randomServer = random.randint(0,serverCount)
+        server = xmlrpc.client.ServerProxy(f"http://{serverIps[randomServer]}:{serverPorts[randomServer]}")
+        randomOp = random.randint(1,100)
+        if randomOp<=70:
+            print(server.read(id))
+            sleep(0.1)
+        if 70<randomOp<=90:
+            print(server.insert(id))
+            sleep(0.1)
+        if 90<randomOp<=100:
+            print(server.delete(id))
+            sleep(0.1)
 
 threading.Thread(target=function_call).start()
