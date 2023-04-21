@@ -22,11 +22,13 @@ def read(id):
         #Retorna ao cliente
         return "O servidor está ocupado no momento"
     else:
+        lockServer.queueOp(1)
         with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=READ, STATUS=STARTING\n')
-        sleep(5)
+        sleep(0.1)
         with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=READ, STATUS=FINISHING\n')
+        lockServer.dequeueOp()
         return "Leitura efetuada"
 
 def insert(id):
@@ -36,30 +38,36 @@ def insert(id):
     else:
         print('Locking insert')
         lockServer.changeInsert()
+        lockServer.queueOp(2)
         with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=INSERT, STATUS=STARTING\n')
-            sleep(5)
+            sleep(0.1)
         with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=INSERT, STATUS=FINISHING\n')
         print('Unlocking insert')
         lockServer.changeInsert()
+        lockServer.dequeueOp()
         return "Insert efetuado"
         
 
 def delete(id):
-    if lockServer.checkDelete() or lockServer.checkInsert():
+    if not lockServer.emptyQueue():
+        return "O servidor está ocupado no momento"
+    elif lockServer.checkDelete() or lockServer.checkInsert():
         #Retorna ao cliente
         return "O servidor está ocupado no momento"
     else:
         print('Locking delete')
         lockServer.changeDelete()
+        lockServer.queueOp(3)
         with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=DELETE, STATUS=STARTING\n')
-            sleep(5)
+            sleep(0.1)
         with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=DELETE, STATUS=FINISHING\n')
         print('Unlocking delete')
         lockServer.changeDelete()
+        lockServer.dequeueOp()
         return "Delete efetuado"
 
 with SimpleXMLRPCServer((ip, int(port))) as server:

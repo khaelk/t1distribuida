@@ -16,8 +16,6 @@ with open("./src/config.txt", 'r') as f:
         serverIps.append(s[0])
         serverPorts.append(s[1])
 
-print(random.randint(0,0), serverCount)
-
 try:
     id = sys.argv[1]
 except IndexError:
