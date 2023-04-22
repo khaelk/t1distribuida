@@ -5,4 +5,4 @@
  > python src/server.py <ip_server> <port_server> <ip_lock_server> <port_lock_server>
 
 ## Rodar client:
- > python src/client.py <client_id>
+ > python src/client.py <client_id> OPTIONAL:<read_chance> <insert_chance> <delete_chance>
