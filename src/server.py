@@ -41,7 +41,7 @@ def insert(id):
         lockServer.queueOp(2)
         with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=INSERT, STATUS=STARTING\n')
-            sleep(0.1)
+        sleep(0.1)
         with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=INSERT, STATUS=FINISHING\n')
         print('Unlocking insert')
@@ -62,7 +62,7 @@ def delete(id):
         lockServer.queueOp(3)
         with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=DELETE, STATUS=STARTING\n')
-            sleep(0.1)
+        sleep(0.1)
         with open('./src/log.txt','a') as f:
             f.write(f'CLIENT={id}, SERVER={ip}:{port}, OP=DELETE, STATUS=FINISHING\n')
         print('Unlocking delete')
