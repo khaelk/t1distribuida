@@ -1,8 +1,8 @@
-## Rodar lock server
+## Run lock server
 > python src/lockserver.py <ip_lock_server> <port_lock_server>
 
-## Rodar server:
+## Run server:
  > python src/server.py <ip_server> <port_server> <ip_lock_server> <port_lock_server>
 
-## Rodar client:
+## Run client:
  > python src/client.py <client_id> OPTIONAL:<read_chance> <insert_chance> <delete_chance>
